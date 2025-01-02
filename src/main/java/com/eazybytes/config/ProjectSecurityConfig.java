@@ -3,9 +3,11 @@ package com.eazybytes.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -23,9 +25,11 @@ public class ProjectSecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         /*http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());*/
         /*http.authorizeHttpRequests((requests) -> requests.anyRequest().denyAll());*/
-        http.authorizeHttpRequests((requests) -> requests
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards").authenticated()
-                .requestMatchers("/notices", "/contact", "/error").permitAll());
+                .requestMatchers("/notices", "/contact", "/error","/register").permitAll());
         http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
         return http.build();
@@ -78,7 +82,8 @@ public class ProjectSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+
+        return new BCryptPasswordEncoder();
     }
 
 }

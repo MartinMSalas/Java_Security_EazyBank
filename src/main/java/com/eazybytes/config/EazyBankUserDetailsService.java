@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-@Service
+//@Service
 public class EazyBankUserDetailsService implements UserDetailsService {
 
     private final CustomerRepository customerRepository;
 
     public EazyBankUserDetailsService(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+         this.customerRepository = customerRepository;
     }
 
 
