@@ -1,50 +1,61 @@
 package com.eazybytes.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer customerId;
 
+    @NotBlank
+    private String name;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
+    private String mobileNumber;
+
+    @NotBlank
     private String pwd;
+
+    @NotBlank
     private String role;
 
-    public int getId() {
-        return id;
-    }
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createDt;
+    @LastModifiedDate
+    private LocalDateTime updateDt;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Version
+    private Integer version;
 
-    public String getEmail() {
-        return email;
-    }
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Account> accounts = new ArrayList<>();
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Card> cards = new ArrayList<>();
 
-    public String getPwd() {
-        return pwd;
-    }
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Loan> loans = new ArrayList<>();
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AccountTransaction> accountTransactions = new ArrayList<>();
 }

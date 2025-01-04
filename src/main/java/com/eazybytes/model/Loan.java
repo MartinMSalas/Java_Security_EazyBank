@@ -8,24 +8,31 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Account {
+public class Loan {
 
     @Id
-    @Column(nullable = false)
-    private Long accountNumber;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer loanNumber;
 
     @NotBlank
-    private String accountType;
+    private String loanType;
 
-    @NotBlank
-    private String branchAddress;
+    @NotNull
+    private LocalDateTime startDt;
+
+    @NotNull
+    private Integer totalLoan;
+
+    @NotNull
+    private Integer amountPaid;
+
+    @NotNull
+    private Integer outstandingAmount;
 
     @CreatedDate
     @Column(updatable = false)
@@ -39,7 +46,4 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AccountTransaction> accountTransactions = new ArrayList<>();
 }
