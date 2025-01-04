@@ -1,5 +1,6 @@
 package com.eazybytes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -35,6 +36,7 @@ public class Customer {
     private String mobileNumber;
 
     @NotBlank
+    @JsonIgnore
     private String pwd;
 
     @NotBlank
