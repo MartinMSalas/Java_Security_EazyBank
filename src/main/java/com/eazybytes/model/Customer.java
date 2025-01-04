@@ -20,6 +20,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "customer_id")
     private Integer customerId;
 
     @NotBlank
@@ -30,6 +31,7 @@ public class Customer {
     private String email;
 
     @NotBlank
+    @Column(name= "mobile_number")
     private String mobileNumber;
 
     @NotBlank
@@ -39,9 +41,10 @@ public class Customer {
     private String role;
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, name= "create_dt")
     private LocalDateTime createDt;
     @LastModifiedDate
+    @Column(name= "update_dt")
     private LocalDateTime updateDt;
 
     @Version

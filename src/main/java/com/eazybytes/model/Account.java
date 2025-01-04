@@ -18,19 +18,22 @@ import java.util.List;
 public class Account {
 
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, name = "account_number")
     private Long accountNumber;
 
     @NotBlank
+    @Column(name= "account_type")
     private String accountType;
 
     @NotBlank
+    @Column(name= "branch_address")
     private String branchAddress;
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, name= "create_dt")
     private LocalDateTime createDt;
     @LastModifiedDate
+    @Column(name= "update_dt")
     private LocalDateTime updateDt;
 
     @Version
