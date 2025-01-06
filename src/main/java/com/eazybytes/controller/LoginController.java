@@ -2,12 +2,14 @@ package com.eazybytes.controller;
 
 import com.eazybytes.model.Customer;
 import com.eazybytes.repository.CustomerRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +28,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody Customer customer){
+    public ResponseEntity<String> registerUser(@RequestBody @Validated Customer customer){
         Customer savedCustomer = null;
         ResponseEntity response = null;
         try {

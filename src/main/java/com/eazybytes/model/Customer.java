@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Customer {
 
     @Id
@@ -27,8 +29,8 @@ public class Customer {
     @NotBlank
     private String name;
 
-    @NotBlank
-    @Email
+    @Email(message = "Invalid email format")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @NotBlank
@@ -36,7 +38,6 @@ public class Customer {
     private String mobileNumber;
 
     @NotBlank
-    @JsonIgnore
     private String pwd;
 
     @NotBlank

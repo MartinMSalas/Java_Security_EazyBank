@@ -22,7 +22,7 @@ public class BalanceController {
     @GetMapping("/myBalance")
     public List<AccountTransaction> getBalanceDetails (@RequestParam int id) {
         List<AccountTransaction> accountTransactions = accountTransactionRepository
-                .findByCustomerIdOrderByTransactionDtDesc(id);
+                .findByCustomerCustomerIdOrderByTransactionDtDesc(id);
 
         return accountTransactions;
     }

@@ -22,7 +22,7 @@ public class CardController {
 
     @GetMapping("/myCards")
     public List<Card> getCardsDetails (@RequestParam int id) {
-        List<Card> cards = cardRepository.findByCustomerId(id);
+        List<Card> cards = cardRepository.findByCustomerCustomerId(id);
 
         return cards;
     }

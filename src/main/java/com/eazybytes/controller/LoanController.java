@@ -22,7 +22,7 @@ public class LoanController {
 
     @GetMapping("/myLoans")
     public List<Loan> getLoansDetails (@RequestParam int id) {
-        List<Loan> loans = loanRepository.findByCustomerIdOrderByStartDtDesc(id);
+        List<Loan> loans = loanRepository.findByCustomerCustomerIdOrderByStartDtDesc(id);
 
         return loans;
     }

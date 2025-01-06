@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -28,13 +29,13 @@ public class NoticeDetails {
     @NotNull
     private String noticeDetails;
 
-    @Column(name="notice_beg_dt")
+    @Column(name="notic_beg_dt")
     @NotNull
-    private String noticeBegDt;
+    private LocalDate noticBegDt;
 
-    @Column(name="notice_end_dt")
+    @Column(name="notic_end_dt")
     @NotNull
-    private String noticeEndDt;
+    private LocalDate  noticEndDt;
 
     @CreatedDate
     @Column(updatable = false, name= "create_dt")

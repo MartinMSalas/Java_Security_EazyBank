@@ -24,7 +24,7 @@ public class AccountController {
     @GetMapping("/myAccount")
     public Account getAccountDetails (@RequestParam int id) throws AccountNotFoundException {
 
-        return accountRepository.findByCustomerId(id).orElseThrow(() -> new AccountNotFoundException("Account with id: " + id + " not found"));
+        return accountRepository.findByCustomerCustomerId(id).orElseThrow(() -> new AccountNotFoundException("Account with id: " + id + " not found"));
     }
 
 }
