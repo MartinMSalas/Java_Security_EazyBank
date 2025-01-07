@@ -32,4 +32,4 @@ public class NoticesController {
                 .body(notices);
     }
 
-}
+}  
