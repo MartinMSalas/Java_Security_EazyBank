@@ -26,29 +26,22 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class ProjectSecurityConfig {
 
-    @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        /*http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());*/
-        /*http.authorizeHttpRequests((requests) -> requests.anyRequest().denyAll());*/
         http
-                .cors().configurationSource(new CorsConfigurationSource() {
-                    @Override
-                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                        CorsConfiguration configuration = new CorsConfiguration();
-                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-                        configuration.setAllowedMethods(Collections.singletonList("*"));
-                        configuration.setAllowCredentials(true);
-                        configuration.setAllowedHeaders(Collections.singletonList("*"));
-                        configuration.setMaxAge(3600L);
-                        return configuration;
-                    }
-                }).and()
-                //.csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration configuration = new CorsConfiguration();
+                    configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                    configuration.setAllowedMethods(Collections.singletonList("*"));
+                    configuration.setAllowCredentials(true);
+                    configuration.setAllowedHeaders(Collections.singletonList("*"));
+                    configuration.setMaxAge(3600L);
+                    return configuration;
+                }))
                 .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
-                .requestMatchers("/notices", "/contact", "/error","/register").permitAll());
-        http.formLogin(withDefaults());
-        http.httpBasic(withDefaults());
+                        .requestMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
+                        .requestMatchers("/notices", "/contact", "/error", "/register").permitAll())
+                .formLogin(withDefaults())
+                .httpBasic(withDefaults());
         return http.build();
     }
 
