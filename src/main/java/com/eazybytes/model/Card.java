@@ -1,4 +1,5 @@
 package com.eazybytes.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -37,7 +38,7 @@ public class Card {
     private Integer amountUsed;
 
     @NotNull
-    @Column(name= "avaliable_amount")
+    @Column(name= "available_amount")
     private Integer availableAmount;
 
     @CreatedDate
@@ -51,6 +52,7 @@ public class Card {
     private Integer version;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 }

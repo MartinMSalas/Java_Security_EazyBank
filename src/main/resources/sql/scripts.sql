@@ -229,3 +229,21 @@ ADD COLUMN update_dt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMES
 RENAME TABLE account_transactions TO account_transaction;
 ALTER TABLE customer DROP INDEX unique_email;
 ALTER TABLE customer ADD CONSTRAINT unique_email UNIQUE (email);
+
+CREATE TABLE `authority` (
+	`authority_id` int NOT NULL AUTO_INCREMENT,
+    `customer_id` int NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
+    PRIMARY KEY (`authority_id`),
+    KEY `customer_id` (`customer_id`),
+    CONSTRAINT `authority_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
+);
+
+INSERT INTO `authority` (`customer_id`, `name`)
+	VALUES (22, 'VIEWACCOUNT');
+INSERT INTO `authority` (`customer_id`, `name`)
+	VALUES (22, 'VIEWCARDS');
+INSERT INTO `authority` (`customer_id`, `name`)
+	VALUES (22, 'VIEWLOANS');
+INSERT INTO `authority` (`customer_id`, `name`)
+	VALUES (22, 'VIEWBALANCE');
