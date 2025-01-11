@@ -19,7 +19,7 @@ public class Authority {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @CreatedDate
@@ -28,7 +28,6 @@ public class Authority {
     @LastModifiedDate
     @Column(name= "update_dt")
     private LocalDateTime updateDt;
-
 
     @Version
     private Integer version;

@@ -48,13 +48,33 @@ public class EazyBankUsernamePasswordAuthenticationProvider implements Authentic
         }
     }
 
+//
+//    @Override
+//    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+//        String username = authentication.getName();
+//        String password = authentication.getCredentials().toString();
+//        Customer customer = customerRepository.findByEmail(username)
+//                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
+//        if(passwordEncoder.matches(password, customer.getPwd())){
+//            return new UsernamePasswordAuthenticationToken(username, password, mapRolesToAuthorities(customer.getRole()) );
+//        } else {
+//            throw new BadCredentialsException("Invalid Password !");
+//        }
+//    }
+//    private List<SimpleGrantedAuthority> mapRolesToAuthorities(String role) {
+//        // Assuming roles are a comma-separated string, split and map to authorities
+//        return Stream.of(role.split(","))
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+//    }
+
     @Override
     public boolean supports(Class<?> authentication) {
         return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
     }
 
 
-    private List<GrantedAuthority> getGrantedAuthorities(Set<Authority> authorities){
+    private List<GrantedAuthority> getGrantedAuthorities(List<Authority> authorities){
         return authorities.stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                 .collect(Collectors.toList());

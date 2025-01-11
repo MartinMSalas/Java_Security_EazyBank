@@ -72,6 +72,5 @@ public class Customer {
     private List<AccountTransaction> accountTransactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @Fetch(FetchMode.JOIN)
-    private Set<Authority> authorities = new HashSet<>();
+    private List<Authority> authorities = new ArrayList<>();
 }
