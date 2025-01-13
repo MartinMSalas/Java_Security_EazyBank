@@ -3,6 +3,8 @@ package com.eazybytes.config;
 import com.eazybytes.model.Authority;
 import com.eazybytes.model.Customer;
 import com.eazybytes.repository.CustomerRepository;
+import jakarta.transaction.Transactional;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,6 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Transactional
 @Component
 public class EazyBankUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
 
@@ -41,6 +44,7 @@ public class EazyBankUsernamePasswordAuthenticationProvider implements Authentic
         String password = authentication.getCredentials().toString();
         Customer customer = customerRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
+        //Hibernate.initialize(customer.getAuthorities());
         if(passwordEncoder.matches(password, customer.getPwd())){
             return new UsernamePasswordAuthenticationToken(username, password, getGrantedAuthorities (customer.getAuthorities()) );
         } else {
