@@ -247,3 +247,9 @@ INSERT INTO `authority` (`customer_id`, `name`)
 	VALUES (22, 'VIEWLOANS');
 INSERT INTO `authority` (`customer_id`, `name`)
 	VALUES (22, 'VIEWBALANCE');
+
+DELETE FROM `authority` WHERE customer_id=22;
+INSERT INTO `authority` (`customer_id`, `name`)
+    	values (22, 'ROLE_USER');
+INSERT INTO `authority` (`customer_id`, `name`)
+    	values (22, 'ROLE_ADMIN');

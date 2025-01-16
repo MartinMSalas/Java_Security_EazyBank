@@ -20,6 +20,7 @@ public class Authority {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private Customer customer;
 
     @CreatedDate

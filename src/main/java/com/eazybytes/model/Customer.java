@@ -72,5 +72,5 @@ public class Customer {
     private List<AccountTransaction> accountTransactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Authority> authorities = new ArrayList<>();
+    private List<Authority> authorities;
 }
