@@ -23,16 +23,16 @@ public class ContactMessages {
 
     @Id
     @Column(name = "contact_id")
-    private String contactId;
+    private String contactMessagesId;
 
     @Column(name = "contact_name")
     @Size(max=50,message="name length must not exceed 50 char")
-    private String contactName;
+    private String contactMessagesName;
 
     @Column(name = "contact_email")
     @Email
     @Size(max=100,message="email length must not exceed 100 char")
-    private String contactEmail;
+    private String contactMessagesEmail;
 
 
     @Size(max=500,message="subject length must not exceed 50 char")
